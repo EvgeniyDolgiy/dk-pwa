@@ -1,0 +1,8 @@
+<div
+  *ngIf="!selected"
+  (click)="menuItemClick()"
+  routerLink="news/{{menuItem.link}}"
+>{{menuItem.title}}</div>
+<div
+  *ngIf="selected"
+>{{menuItem.title}}</div>

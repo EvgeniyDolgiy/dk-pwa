@@ -1,0 +1,15 @@
+<div mat-subheader><b>Menu</b></div>
+<mat-selection-list #list [multiple]="false">
+  <mat-list-option
+    *ngFor="let menuItem of menuList"
+    [value]="menuItem.id"
+    [selected]="checkSelectedMenu(menuItem.id)"
+  >
+    <app-menu-item
+      [menuItem]="menuItem"
+      [selected]="checkSelectedMenu(menuItem.id)"
+      (selectMenu)="selectMenuItem($event)"
+    ></app-menu-item>
+  </mat-list-option>
+</mat-selection-list>
+

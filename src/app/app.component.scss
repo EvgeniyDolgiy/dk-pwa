@@ -1,0 +1,24 @@
+.toolbar-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 2;
+  height: 56px;
+  min-height: 56px;
+}
+
+.toolbar-spacer {
+  flex: 1 1 auto;
+}
+
+.container {
+  height: calc(100vh - 56px);
+  top: 56px;
+  border: 1px solid rgba(0, 0, 0, 0.5);
+}
+
+.sidenav {
+  width: 200px;
+}
+

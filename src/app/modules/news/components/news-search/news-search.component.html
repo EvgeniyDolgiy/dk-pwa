@@ -1,0 +1,283 @@
+<ng-template #searchRef>
+  <mat-form-field
+    class="full-width"
+    appearance="outline"
+    fxFlex="auto"
+  >
+    <mat-label>Search</mat-label>
+    <input matInput [formControl]="query">
+  </mat-form-field>
+</ng-template>
+
+<ng-template #rangeRef>
+  <mat-form-field
+    class="form-field"
+    appearance="outline"
+  >
+    <mat-label>Range</mat-label>
+    <mat-date-range-input
+      [formGroup]="period"
+      [rangePicker]="periodPicker"
+    >
+      <input
+        matStartDate
+        placeholder="From"
+        formControlName="from"
+      >
+      <input
+        matEndDate
+        placeholder="To"
+        formControlName="to"
+      >
+    </mat-date-range-input>
+    <mat-datepicker-toggle matSuffix [for]="periodPicker"></mat-datepicker-toggle>
+    <mat-date-range-picker #periodPicker></mat-date-range-picker>
+  </mat-form-field>
+</ng-template>
+
+<ng-template #languageRef>
+  <mat-form-field
+    class="full-width"
+    appearance="outline"
+    fxFlex="auto"
+  >
+    <mat-label>Language</mat-label>
+    <mat-select [formControl]="language">
+      <ng-container *ngFor="let language of languageDictionary">
+        <mat-option
+          [value]="language.key"
+        >{{language.name}}</mat-option>
+      </ng-container>
+    </mat-select>
+  </mat-form-field>
+</ng-template>
+
+<ng-template #findRef>
+  <div class="button-container">
+    <button
+      mat-fab
+      color="primary"
+      aria-label="Search news"
+      (click)="search($event)"
+      [routerLink]="['/news', type]"
+      [queryParams]="getSearchUrl()"
+      queryParamsHandling="merge"
+    >
+      <mat-icon>search</mat-icon>
+    </button>
+  </div>
+</ng-template>
+
+<ng-template #countryRef>
+  <mat-form-field
+    class="full-width"
+    appearance="outline"
+    fxFlex="auto"
+  >
+    <mat-label>Country</mat-label>
+    <mat-select [formControl]="country">
+      <ng-container *ngFor="let country of countryDictionary">
+        <mat-option
+          [value]="country.key"
+        >{{country.name}}</mat-option>
+      </ng-container>
+    </mat-select>
+  </mat-form-field>
+</ng-template>
+
+<ng-template #categoryRef>
+  <mat-form-field
+    class="full-width"
+    appearance="outline"
+    fxFlex="auto"
+  >
+    <mat-label>Category</mat-label>
+    <mat-select [formControl]="category">
+      <ng-container *ngFor="let category of categoryDictionary">
+        <mat-option
+          [value]="category.key"
+        >{{category.name}}</mat-option>
+      </ng-container>
+    </mat-select>
+  </mat-form-field>
+</ng-template>
+
+<div
+  class="search"
+  fxLayout="row"
+  fxLayout.lt-md="column"
+  fxLayoutGap="5px"
+>
+  <ng-container *ngFor="let formFieldItem of formFieldList">
+    <ng-container
+      *ngTemplateOutlet="
+        ((formFieldItem === 'search') && searchRef)
+        || ((formFieldItem === 'range') && rangeRef)
+        || ((formFieldItem === 'language') && languageRef)
+        || ((formFieldItem === 'find') && findRef)
+        || ((formFieldItem === 'country') && countryRef)
+        || ((formFieldItem === 'category') && categoryRef)
+      "
+    ></ng-container>
+  </ng-container>
+  <!-- <mat-form-field
+    class="full-width"
+    appearance="outline"
+    fxFlex="auto"
+  >
+    <mat-label>Search</mat-label>
+    <input matInput [formControl]="query">
+  </mat-form-field> -->
+
+  <!-- <mat-form-field
+    class="form-field"
+    appearance="outline"
+  >
+    <mat-label>Range</mat-label>
+    <mat-date-range-input
+      [formGroup]="period"
+      [rangePicker]="periodPicker"
+    >
+      <input
+        matStartDate
+        placeholder="From"
+        formControlName="from"
+      >
+      <input
+        matEndDate
+        placeholder="To"
+        formControlName="to"
+      >
+    </mat-date-range-input>
+    <mat-datepicker-toggle matSuffix [for]="periodPicker"></mat-datepicker-toggle>
+    <mat-date-range-picker #periodPicker></mat-date-range-picker>
+  </mat-form-field> -->
+
+  <!-- <mat-form-field
+    class="full-width"
+    appearance="outline"
+    fxFlex="auto"
+  >
+    <mat-label>Language</mat-label>
+    <mat-select>
+      <mat-option value="en">English</mat-option>
+      <mat-option value="ru">Русский</mat-option>
+    </mat-select>
+  </mat-form-field> -->
+
+  <!-- <div class="button-container">
+    <button
+      mat-fab
+      color="primary"
+      aria-label="Search news"
+      (click)="search($event)"
+      [routerLink]="['/news', type]"
+      [queryParams]="getSearchUrl()"
+      queryParamsHandling="merge"
+    >
+      <mat-icon>search</mat-icon>
+    </button>
+  </div> -->
+</div>
+<!-- <div
+  class="search"
+  fxLayout="row"
+  fxLayout.lt-md="column"
+  fxLayoutGap="5px"
+>
+  <mat-form-field
+    class="full-width"
+    appearance="outline"
+    fxFlex="auto"
+  >
+    <mat-label>Country</mat-label>
+    <mat-select>
+      <mat-option value="ua">Ukraine</mat-option>
+      <mat-option value="au">Australia</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field
+    class="full-width"
+    appearance="outline"
+    fxFlex="auto"
+  >
+    <mat-label>Category</mat-label>
+    <mat-select>
+      <mat-option value="business">Business</mat-option>
+      <mat-option value="general">General</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <div class="button-container">
+    <button
+      mat-fab
+      color="primary"
+      aria-label="Search news"
+      (click)="search($event)"
+      [routerLink]="['/news', type]"
+      [queryParams]="getSearchUrl()"
+      queryParamsHandling="merge"
+    >
+      <mat-icon>search</mat-icon>
+    </button>
+  </div>
+</div> -->
+
+<!-- <div
+  class="search"
+  fxLayout="row"
+  fxLayout.lt-md="column"
+  fxLayoutGap="5px"
+>
+  <mat-form-field
+    class="full-width"
+    appearance="outline"
+    fxFlex="auto"
+  >
+    <mat-label>Category</mat-label>
+    <mat-select>
+      <mat-option value="business">Business</mat-option>
+      <mat-option value="general">General</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field
+    class="full-width"
+    appearance="outline"
+    fxFlex="auto"
+  >
+    <mat-label>Language</mat-label>
+    <mat-select>
+      <mat-option value="en">English</mat-option>
+      <mat-option value="ru">Русский</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field
+    class="full-width"
+    appearance="outline"
+    fxFlex="auto"
+  >
+    <mat-label>Country</mat-label>
+    <mat-select>
+      <mat-option value="ua">Ukraine</mat-option>
+      <mat-option value="au">Australia</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <div class="button-container">
+    <button
+      mat-fab
+      color="primary"
+      aria-label="Search news"
+      (click)="search($event)"
+      [routerLink]="['/news', type]"
+      [queryParams]="getSearchUrl()"
+      queryParamsHandling="merge"
+    >
+      <mat-icon>search</mat-icon>
+    </button>
+  </div>
+</div> -->
+      <!-- [state]="{type: type}" -->
